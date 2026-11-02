@@ -48,8 +48,8 @@ This is the six-month change in the spread. Because $S$ is already in percentage
 |S_{t+6}| Six-month spread change | |
 | `Fed_Rate%_L1` | Lagged policy rate | Tight policy tends to raise credit risk |
 | `Unemp_Rate%_L1`| Lagged unemployment | Labour market weakness signals default risk |
-| `CPI_yoy_L1`| $\frac{\text{CPI}_{t-1}}{\text{CPI}_{t-13}} - 1$ | Inflation environment; year-on-year removes seasonality | 
-|`GCI_yoy_L1`| $\frac{\text{GCI}_{t-1}}{\text{GCI}_{t-13}} - 1$ | Global Commodity Index |
+| `CPI_yoy_L1`| (CPI<sub>t-1</sub> / CPI<sub>t-13</sub>) - 1 | Inflation environment; year-on-year removes seasonality | 
+|`GCI_yoy_L1`| (GCI<sub>t-1</sub> / GCI<sub>t-13</sub>) - 1| Global Commodity Index |
 
 The one-month lag ensures no information is used that would not be available on the forecast date.
 
