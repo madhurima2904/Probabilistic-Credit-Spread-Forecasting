@@ -131,17 +131,21 @@ _Detailed interpretations given along side code in the Jupyter notebook_
 4. The omission of autoregressive (AR) lags, which may leave unaccounted temporal dependencies and serial correlation in the time series.
 
 ## 7. Repository Structure
+```
 .
 ├── README.md
-├── DS603_Project.ipynb        # Main analysis notebook (Colab)
+├── AI_USAGE.md                # AI tool usage disclosure
+├── CONTRIBUTIONS.md           # Team member contributions
+├── notebook.ipynb             # Main analysis notebook (Colab)
+├── requirements.txt           # Python dependencies
 ├── data/
 │   ├── raw/                   # Original downloads, unedited
 │   └── processed/             # Month-end and merged monthly data
-├── outputs/
-│   ├── EDA/                   # Trend Analysis, Box plots
-│   └── figures/               # QQ-plots, forecast charts, interval plots
-└── requirements.txt           # Python dependencies
-
+└── output/
+    ├── EDA/                   # Trend analysis, box plots
+    ├── figures/               # QQ-plots, forecast charts, interval plots
+    └── presentation/          # Slides and presentation files
+```
 
 ## 8. Setup
    
