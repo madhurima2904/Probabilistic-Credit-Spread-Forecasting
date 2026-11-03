@@ -90,7 +90,9 @@ Training ends in June 2022 so that every training target is observed before the 
    ### 5.4 Mean Absolute Error
    Mean Absolute Error (MAE): MAE is the average absolute gap between the forecast and the actual six-month change, in basis points: $\text{MAE} = \frac{1}{n}\sum_t |\hat{y}_t - y_t|$. It is easy to read and is compared against the no-change benchmark, since beating a no-change forecast is the real test for a spread model.
 
-## 6. Analysis and Summary of Findings
+## 6. Project Report
+
+### 6.1 Analysis Workflow
 
 ```mermaid
 flowchart TD
@@ -101,14 +103,17 @@ flowchart TD
     D --> F[Test: Jan 2023 – Dec 2025]
     E --> G[Fit Normal and Student-t to ΔS_t<br/>Compare with AIC and Q-Q plots]
     G --> H[Monte Carlo: simulate 6 monthly changes<br/>5th and 95th percentiles = 90% band]
-    E --> I[Ridge regression<br/>+ no-change and AR benchmarks]
+    E --> I[Ridge regression with alpha set using CV]
     I --> J[Forecast on test set]
     H --> K[Evaluate: MAE and coverage]
     J --> K
     F --> K
     K --> L[Compare Ridge vs no-change benchmark]
 ```
-### 6.2 Summary of findings
+### 6.2 Results
+
+
+### 6.3 Summary of findings
 1. Credit-spread changes exhibit heavy-tailed behaviour.
 2. Student-t provides a better fit than Normal.
 3. The Monte carlo simulations gave 100% coverage but were very wide (650 - 680) bps when the actual was only around 300bps.
@@ -119,13 +124,13 @@ flowchart TD
 
 _Detailed interpretations given along side code in the Jupyter notebook_
 
-### 6.3 Limitations
+### 6.4 Limitations
 1. Only 36 test observations, with overlapping six-month horizons. Hence only 6 independent time periods for testing.
 2. Monte Carlo assumes monthly changes are independent and identically distributed. But a Variance ratio of 1.247 suggests the independence assumption may be imperfect.
 3. Normal and Student-t distributions may not fully capture asymmetric tail behaviour.
 4. The omission of autoregressive (AR) lags, which may leave unaccounted temporal dependencies and serial correlation in the time series.
 
-## 6. Repository Structure
+## 7. Repository Structure
 .
 ├── README.md
 ├── DS603_Project.ipynb        # Main analysis notebook (Colab)
@@ -138,7 +143,7 @@ _Detailed interpretations given along side code in the Jupyter notebook_
 └── requirements.txt           # Python dependencies
 
 
-## 7. Setup
+## 8. Setup
    
 bash
 git clone <REPO_URL>
@@ -149,7 +154,7 @@ Or open DS603_Project.ipynb directly in Google Colab. The notebook clones the da
 
 Key packages: pandas, numpy, scipy, statsmodels, scikit-learn, matplotlib, seaborn.
 
-## 8. References
+## 9. References
 Links:
 HY-OAS: https://www.macrotrends.net/3006/high-yield-spread
 U.S. Macroeconomic Indicators: https://fred.stlouisfed.org/
