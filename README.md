@@ -90,6 +90,41 @@ Training ends in June 2022 so that every training target is observed before the 
    ### 5.4 Mean Absolute Error
    Mean Absolute Error (MAE): MAE is the average absolute gap between the forecast and the actual six-month change, in basis points: $\text{MAE} = \frac{1}{n}\sum_t |\hat{y}_t - y_t|$. It is easy to read and is compared against the no-change benchmark, since beating a no-change forecast is the real test for a spread model.
 
+## 6. Analysis and Summary of Findings
+
+```mermaid
+flowchart TD
+    A[Raw data: daily HYOAS + FRED monthly macro] --> B[Clean and merge]
+    B --> C[Convert to month-end values]
+    C --> D[Feature engineering<br/>S_t, ΔS_t, 6-month target S_t+6 − S_t<br/>1-month lags of FEDFUNDS, UNRATE, CPI YoY]
+    D --> E[Train: Feb 2001 – Jun 2022]
+    D --> F[Test: Jan 2023 – Dec 2025]
+    E --> G[Fit Normal and Student-t to ΔS_t<br/>Compare with AIC and Q-Q plots]
+    G --> H[Monte Carlo: simulate 6 monthly changes<br/>5th and 95th percentiles = 90% band]
+    E --> I[Ridge regression<br/>+ no-change and AR benchmarks]
+    I --> J[Forecast on test set]
+    H --> K[Evaluate: MAE and coverage]
+    J --> K
+    F --> K
+    K --> L[Compare Ridge vs no-change benchmark]
+```
+### 6.2 Summary of findings
+1. Credit-spread changes exhibit heavy-tailed behaviour.
+2. Student-t provides a better fit than Normal.
+3. The Monte carlo simulations gave 100% coverage but were very wide (650 - 680) bps when the actual was only around 300bps.
+4. The test period was relatively calm compared with the training period, which led to conservative boundaries.
+5. Compared with the unconditional bands, Ridge is tighter (574 bps).
+6. 6 month spread changes are often relatively small outside major stress periods, which favours the more conservative forecasts produced by a moving average model. 
+7. Recent spread dynamics provided more useful predictive information than the selected lagged macroeconomic variables during this partocular test period
+
+_Detailed interpretations given along side code in the Jupyter notebook_
+
+### 6.3 Limitations
+1. Only 36 test observations, with overlapping six-month horizons. Hence only 6 independent time periods for testing.
+2. Monte Carlo assumes monthly changes are independent and identically distributed. But a Variance ratio of 1.247 suggests the independence assumption may be imperfect.
+3. Normal and Student-t distributions may not fully capture asymmetric tail behaviour.
+4. The omission of autoregressive (AR) lags, which may leave unaccounted temporal dependencies and serial correlation in the time series.
+
 ## 6. Repository Structure
 .
 ├── README.md
